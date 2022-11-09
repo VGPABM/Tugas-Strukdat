@@ -1,3 +1,4 @@
+// Online C++ compiler to run C++ program online
 #include <iostream>
 #include <string>
 #include <bits/stdc++.h>
@@ -54,9 +55,12 @@ int evaluasi (string s){
             } else if (spot == ')'){
                 vals.push(val);
                 while (ops.top() != '('){
-                    spot = ops.pop();
-                    val = vals.pop();
-                    int prev = vals.pop();
+                    spot = ops.top();
+                    ops.pop();
+                    val = vals.top();
+                    ops.pop();
+                    int prev = vals.top();
+                    vals.pop();
                     val = operasi(prev, val, spot);
                     vals.push(val);
                 }
@@ -70,8 +74,10 @@ int evaluasi (string s){
                     ops.push(spot);
                     val = 0;
                 } else {
-                    int prevval = vals.pop();
-                    int prevop = ops.pop();
+                    int prevval = vals.top();
+                    vals.pop();
+                    int prevop = ops.top();
+                    ops.pop();
                     prevval = operasi(prevval,val,prevop);
                     vals.push(prevval);
                     ops.push(spot);
@@ -84,8 +90,10 @@ int evaluasi (string s){
     }
     
     while (!ops.empty()){
-        int prev = vals.pop();
-        char spot = ops.pop();
+        int prev = vals.top();
+        vals.pop();
+        char spot = ops.top();
+        ops.pop();
         val = operasi (prev,val,spot);
     }
     return val;
